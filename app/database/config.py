@@ -5,6 +5,8 @@ load_dotenv()
 
 class Settings(BaseSettings):
     DATABASE_URL: str
+    SECRET_KEY = str
+    ALGORITHM: str
     
     class Config:
         env_file = ".env"

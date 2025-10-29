@@ -5,3 +5,5 @@ class ResponseMessage():
     PASSWORD_NOT_MATCH = "Password Does not Match"
     MOBILE_NUMBER_ALREADY_SET = "Mobile Number Already Set"
     INVALID_OTP = "Invalid OTP please entec correct otp"
+    TOKEN_EMPTY = "No Token to verify"
+    INVALID_TOKEN = "Token is invalid"
