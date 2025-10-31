@@ -7,3 +7,4 @@ class ResponseMessage():
     INVALID_OTP = "Invalid OTP please entec correct otp"
     TOKEN_EMPTY = "No Token to verify"
     INVALID_TOKEN = "Token is invalid"
+    OTP_COUNT_REACHED = "Otp count has reached please try after 30 mins"
