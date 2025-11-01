@@ -71,6 +71,12 @@ class SignUpService():
             if user_details.otp != payload.otp:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ResponseMessage.INVALID_OTP)
             
+            if not user_details.otp_created_at:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ResponseMessage.OTP_NOT_CREATED)
+            
+            if (datetime.utcnow() - user_details.otp_created_at).total_seconds() > 300:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ResponseMessage.OTP_EXPIRED)
+            
             update_payload = {
                 "otp": None,
                 "otp_count": 0,
@@ -99,7 +105,16 @@ class SignUpService():
                 otp_count += user_details.otp_count
                 
             if otp_count > 3 and user_details.resend_otp_time == None:
-                await user_model.update(session, str(user_id), {"otp":None, "otp_count": 0, "otp_created_at": None, "resend_otp_time":datetime.utcnow() + timedelta(minutes=30)})
+                await user_model.update(
+                    session, 
+                    str(user_id), 
+                    {
+                        "otp":None, 
+                        "otp_count": 0, 
+                        "otp_created_at": None, 
+                        "resend_otp_time":datetime.utcnow() + timedelta(minutes=30)
+                    }
+                )
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail=ResponseMessage.OTP_COUNT_REACHED)
             
             if user_details.resend_otp_time and user_details.resend_otp_time > datetime.utcnow():
@@ -108,7 +123,15 @@ class SignUpService():
             
             otp = generate_secret_otp()
             
-            await user_model.update(session, str(user_id), {"otp":otp, "otp_count": otp_count, "otp_created_at": datetime.utcnow(), "resend_otp_time":None})
+            await user_model.update(
+                session, 
+                str(user_id), 
+                {
+                    "otp":otp, "otp_count": otp_count, 
+                    "otp_created_at": datetime.utcnow(), 
+                    "resend_otp_time":None, 
+                }
+            )
             
             return otp
         

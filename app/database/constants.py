@@ -8,3 +8,5 @@ class ResponseMessage():
     TOKEN_EMPTY = "No Token to verify"
     INVALID_TOKEN = "Token is invalid"
     OTP_COUNT_REACHED = "Otp count has reached please try after 30 mins"
+    OTP_EXPIRED = "Otp has been expired"
+    OTP_NOT_CREATED = "OTP not created yet!"
