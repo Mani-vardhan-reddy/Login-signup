@@ -3,6 +3,7 @@ from fastapi import Depends, HTTPException, status
 from app.models.signup_models import user_model, Users
 from app.database.constants import ResponseMessage
 from app.util_functions.util_services import hash_password, generate_secret_otp
+from app.database.config import settings
 
 class SignUpService():
     async def signup(self, payload, session):
@@ -74,7 +75,7 @@ class SignUpService():
             if not user_details.otp_created_at:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ResponseMessage.OTP_NOT_CREATED)
             
-            if (datetime.utcnow() - user_details.otp_created_at).total_seconds() > 300:
+            if (datetime.utcnow() - user_details.otp_created_at).total_seconds() > settings.OTP_VALID_FOR_SECONDS:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ResponseMessage.OTP_EXPIRED)
             
             update_payload = {
@@ -104,7 +105,7 @@ class SignUpService():
             if user_details.otp_count:
                 otp_count += user_details.otp_count
                 
-            if otp_count > 3 and user_details.resend_otp_time == None:
+            if otp_count > settings.MAX_OTP_COUNT and user_details.resend_otp_time == None:
                 await user_model.update(
                     session, 
                     str(user_id), 
