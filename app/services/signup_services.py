@@ -3,7 +3,7 @@ from fastapi import Depends, HTTPException, status
 from app.models.signup_models import user_model, Users
 from app.database.constants import ResponseMessage
 from app.util_functions.util_services import hash_password, generate_secret_otp
-from app.database.config import settings
+from app.core.config import settings
 
 class SignUpService():
     async def signup(self, payload, session):

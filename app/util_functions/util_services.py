@@ -3,7 +3,7 @@ import random
 import secrets
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
-from app.database.config import settings
+from app.core.config import settings
 
 
 password_hasher = CryptContext(schemes=['bcrypt'], deprecated="auto")
