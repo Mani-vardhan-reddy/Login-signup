@@ -1,4 +1,4 @@
-[
+signup_templates = [
     {
         "notifiation_slug": "welcome_email",
         "notification_name": "Welcome Email to User",
