@@ -1,6 +1,7 @@
 from app.database.database import Base
 from sqlalchemy import Column, String, VARCHAR, INTEGER, Boolean, DateTime, String
 from sqlalchemy.dialects.mysql import LONGTEXT
+from sqlalchemy.types import JSON
 from datetime import datetime
 from app.models.crud import CRUDBase
 import uuid
@@ -34,4 +35,19 @@ class Users(Base):
     created_at = Column(DateTime, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=True, onupdate=datetime.utcnow())
     
+    
+class Templates(Base):
+    __tablename__ = "notification_templates"
+    
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    slug = Column(String(50), nullable=False, unique=True)
+    template_name = Column(String(255), nullable=False)
+    subject = Column(String(255), nullable=False)
+    content = Column(LONGTEXT, nullable=False)
+    variables = Column(JSON, nullable=True, default=list)
+    notification_type = Column(String(36), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=True, onupdate=datetime.utcnow())
+    
 user_model = CRUDBase(Users)
+templates_model = CRUDBase(Templates)
