@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     ALGORITHM: str
     MAX_OTP_COUNT: int
     OTP_VALID_FOR_SECONDS: int
+    KAFKA_BOOTSTRAP_SERVERS: str
+    KAFKA_OFFSET_RESET: str
+    KAFKA_RETRIES: int
     
     class Config:
         env_file = ".env"
