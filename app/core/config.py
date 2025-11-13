@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     KAFKA_BOOTSTRAP_SERVERS: str
     KAFKA_OFFSET_RESET: str
     KAFKA_RETRIES: int
+    KAFKA_BROKER_URL: str
     
     class Config:
         env_file = ".env"
