@@ -2,7 +2,7 @@ from app.database.database import Base, engine, SessionLocal
 from fastapi import FastAPI
 import uvicorn
 from app.routes.signup_routes import router
-from app.notifications.templates_seeders_data import TemplatesSeeders
+from app.notifications_trmplates.templates_seeders_data import TemplatesSeeders
 
 app = FastAPI()
 app.include_router(router=router)

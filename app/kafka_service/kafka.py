@@ -22,6 +22,18 @@ class KafkaService():
                 raise
         return self._producer
     
+    def get_consumer(self):
+        if not self._consumer:
+            try:
+                self._consumer = Consumer(
+                    {
+                        "bootstrap.servers": self.broker_url
+                    }
+                )
+            except KafkaException as e:
+                raise
+        return self._consumer
+    
     def produce_message(self, topic, key, value):
         try:
             producer = self.get_producer()

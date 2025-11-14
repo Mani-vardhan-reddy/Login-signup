@@ -1,5 +1,5 @@
 from app.models.signup_models import Templates
-from app.notifications.signup_templates_json import signup_templates
+from app.notifications_trmplates.signup_templates_json import signup_templates
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 import uuid
