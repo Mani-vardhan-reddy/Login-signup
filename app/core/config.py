@@ -13,6 +13,14 @@ class Settings(BaseSettings):
     KAFKA_OFFSET_RESET: str
     KAFKA_RETRIES: int
     KAFKA_BROKER_URL: str
+    SMTP_HOST: str
+    SMTP_PORT: int
+    SMTP_USERNAME: str
+    SMTP_PASSWORD: str
+    SMTP_FROM_EMAIL: str
+    SMTP_FROM_NAME: str
+    SMTP_TLS: bool = True
+    SMTP_SSL: bool = False
     
     class Config:
         env_file = ".env"
