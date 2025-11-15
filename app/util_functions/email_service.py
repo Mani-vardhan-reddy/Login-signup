@@ -56,3 +56,5 @@ class SMTPService():
         except Exception as e:
             print(f"Error sending mail: {e}")
             return False
+        
+smtp_service = SMTPService()
