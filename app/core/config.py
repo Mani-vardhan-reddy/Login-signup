@@ -9,10 +9,12 @@ class Settings(BaseSettings):
     ALGORITHM: str
     MAX_OTP_COUNT: int
     OTP_VALID_FOR_SECONDS: int
-    KAFKA_BOOTSTRAP_SERVERS: str
-    KAFKA_OFFSET_RESET: str
-    KAFKA_RETRIES: int
+    
+    KAFKA_EMAIL_TOPIC: str
+    KAFKA_GROUP_ID: str
+    KAFKA_AUTO_OFFSET_RESET: str
     KAFKA_BROKER_URL: str
+    
     SMTP_HOST: str
     SMTP_PORT: int
     SMTP_USERNAME: str

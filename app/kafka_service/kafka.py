@@ -30,8 +30,8 @@ class KafkaService():
                 self._consumer = Consumer(
                     {
                         "bootstrap.servers": self.broker_url,
-                        "group.id": "email-worker-group",
-                        "auto.offset.reset": "earliest",
+                        "group.id": settings.KAFKA_GROUP_ID,
+                        "auto.offset.reset": settings.KAFKA_AUTO_OFFSET_RESET,
                     }
                 )
             except KafkaException as e:

@@ -4,6 +4,7 @@ from app.models.signup_models import user_model, Users
 from app.database.constants import ResponseMessage
 from app.util_functions.util_services import hash_password, generate_secret_otp
 from app.core.config import settings
+from app.notification_service.notification_service import notification_service
 
 class SignUpService():
     async def signup(self, payload, session):
@@ -13,6 +14,19 @@ class SignUpService():
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=ResponseMessage.USER_ALREADY_EXIST)
             
             response = await user_model.create(session, payload.model_dump())
+            
+            notification_payload = {
+                "variables":{
+                    "user_name":f"{payload.first_name} {payload.last_name}",
+                    "product_name":"",
+                    "verify_link":"",
+                    "mobile_number":"",
+                    "email":""
+                },
+                "slug": "emailverification_email",
+                "to_email": payload.email_id
+            }
+            notification_service.send_notification(notification_payload, topic="email-topic")
             
             return {"user_id": response.id}
         
