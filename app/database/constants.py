@@ -10,3 +10,5 @@ class ResponseMessage():
     OTP_COUNT_REACHED = "Otp count has reached please try after 30 mins"
     OTP_EXPIRED = "Otp has been expired"
     OTP_NOT_CREATED = "OTP not created yet!"
+    GOOGLE_TOKEN_EXCHANGE_FAILED = "Google token exchange failed"
+    GOOGLE_EMAIL_NOT_VERIFIED = "Google email not verified"

@@ -24,6 +24,13 @@ class Settings(BaseSettings):
     SMTP_TLS: bool = True
     SMTP_SSL: bool = False
     
+    GOOGLE_AUTH_ENDPOINT: str
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_CLIENT_SECRET: str
+    GOOGLE_TOKEN_ENDPOINT: str
+    GOOGLE_USER_ENDPOINT: str
+    GOOGLE_REDIRECT_URI: str
+    
     class Config:
         env_file = ".env"
         
